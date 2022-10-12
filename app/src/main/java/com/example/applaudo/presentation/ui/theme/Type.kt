@@ -1,4 +1,4 @@
-package com.example.applaudo.ui.theme
+package com.example.applaudo.presentation.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
