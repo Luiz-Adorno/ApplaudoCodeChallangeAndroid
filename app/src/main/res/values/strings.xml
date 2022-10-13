@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Applaudo</string>
+
+    <!-- Login -->
+    <string name="login_description">"Sign in to your account"</string>
+    <string name="login_btn_text">"log in"</string>
 </resources>
