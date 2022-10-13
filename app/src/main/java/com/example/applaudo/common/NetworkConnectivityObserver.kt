@@ -27,11 +27,6 @@ class NetworkConnectivityObserver @Inject constructor(
                     launch { send(ConnectivityObserver.Status.Available) }
                 }
 
-                override fun onLosing(network: Network, maxMsToLive: Int) {
-                    super.onLosing(network, maxMsToLive)
-                    launch { send(ConnectivityObserver.Status.Losing) }
-                }
-
                 override fun onLost(network: Network) {
                     super.onLost(network)
                     launch { send(ConnectivityObserver.Status.Lost) }

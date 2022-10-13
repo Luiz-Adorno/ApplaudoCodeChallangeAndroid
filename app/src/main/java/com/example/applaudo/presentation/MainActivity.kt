@@ -46,7 +46,20 @@ class MainActivity : ComponentActivity() {
                     ConnectivityObserver.Status.Lost -> {
                         Box(modifier = Modifier.fillMaxSize()) {
                             Text(
-                                text = "No Internet Connection",
+                                text = "Internet connection lost",
+                                color = MaterialTheme.colors.error,
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 20.dp)
+                                    .align(Alignment.Center)
+                            )
+                        }
+                    }
+                    ConnectivityObserver.Status.Unavailable -> {
+                        Box(modifier = Modifier.fillMaxSize()) {
+                            Text(
+                                text = "Internet connection unavailable",
                                 color = MaterialTheme.colors.error,
                                 textAlign = TextAlign.Center,
                                 modifier = Modifier
