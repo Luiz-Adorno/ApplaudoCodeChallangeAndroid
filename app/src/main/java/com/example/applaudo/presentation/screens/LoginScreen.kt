@@ -1,4 +1,4 @@
-package com.example.applaudo.presentation.login
+package com.example.applaudo.presentation.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.applaudo.R
+import com.example.applaudo.presentation.Screen
 
 @Composable
 fun LoginScreen(navController: NavController) {
@@ -52,7 +53,7 @@ fun LoginScreen(navController: NavController) {
                 textAlign = TextAlign.Center
             )
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {  navController.navigate(Screen.HomeScreen.route) },
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = Color(98,67,255),
                     contentColor = Color.White),

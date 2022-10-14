@@ -21,8 +21,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.applaudo.common.ConnectivityObserver
 import com.example.applaudo.common.NetworkConnectivityObserver
-import com.example.applaudo.presentation.login.LoginScreen
-import com.example.applaudo.presentation.splash_screen.SplashScreen
+import com.example.applaudo.presentation.screens.HomeScreen
+import com.example.applaudo.presentation.screens.LoginScreen
+import com.example.applaudo.presentation.screens.SplashScreen
 import com.example.applaudo.presentation.ui.theme.ApplaudoTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -38,10 +39,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ApplaudoTheme {
-                val status by connectivity.observe().collectAsState(
+                val connectivityStatus by connectivity.observe().collectAsState(
                     initial = ConnectivityObserver.Status.Unavailable
                 )
-                when (status) {
+                when (connectivityStatus) {
                     ConnectivityObserver.Status.Available -> Navigation()
                     ConnectivityObserver.Status.Lost -> {
                         Box(modifier = Modifier.fillMaxSize()) {
@@ -78,12 +79,15 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "splash_screen") {
+    NavHost(navController = navController, startDestination = Screen.SplashScreen.route) {
         composable(Screen.SplashScreen.route) {
             SplashScreen(navController = navController)
         }
         composable(Screen.MainScreen.route) {
             LoginScreen(navController = navController)
+        }
+        composable(Screen.HomeScreen.route) {
+            HomeScreen(navController = navController)
         }
     }
 }

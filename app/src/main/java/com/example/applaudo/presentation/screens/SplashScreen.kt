@@ -1,4 +1,4 @@
-package com.example.applaudo.presentation.splash_screen
+package com.example.applaudo.presentation.screens
 
 import android.view.animation.OvershootInterpolator
 import androidx.compose.animation.core.Animatable
@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
 import com.example.applaudo.R
+import com.example.applaudo.presentation.Screen
 import kotlinx.coroutines.delay
 
 @Composable
@@ -38,7 +39,7 @@ fun SplashScreen(navController: NavController) {
             )
         )
         delay(3000L)
-        navController.navigate("main_screen")
+        navController.navigate(Screen.MainScreen.route)
     }
 
     // Creating a Vertical Gradient Color
