@@ -4,4 +4,5 @@
     <!-- Login -->
     <string name="login_description">"Sign in to your account"</string>
     <string name="login_btn_text">"log in"</string>
+    <string name="summary">Summary</string>
 </resources>

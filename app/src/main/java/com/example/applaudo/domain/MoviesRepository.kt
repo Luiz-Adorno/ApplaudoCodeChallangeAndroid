@@ -1,8 +1,13 @@
 package com.example.applaudo.domain
 
-import com.example.applaudo.data.remote.dto.PopularMoviesDto
+import androidx.paging.PagingData
+import com.example.applaudo.data.local.db.PopularMoviesCache
+import com.example.applaudo.data.local.db.TopRatedMoviesCache
+import kotlinx.coroutines.flow.Flow
 
 interface MoviesRepository {
-    suspend fun getPopularMovies(page: Int, limit: Int): PopularMoviesDto
+    fun getPopularMovies(): Flow<PagingData<PopularMoviesCache>>
+    fun getTopRatedMovies(): Flow<PagingData<TopRatedMoviesCache>>
+    fun getMoviesFromDB(movieId: Int): Flow<PopularMoviesCache>
 
 }

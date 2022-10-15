@@ -1,15 +1,22 @@
 package com.example.applaudo.data.repository
 
-import com.example.applaudo.data.remote.MovieDbApi
-import com.example.applaudo.data.remote.dto.PopularMoviesDto
+import com.example.applaudo.data.local.db.PopularMoviesCache
+import com.example.applaudo.data.repository.dataSource.MovieLocalDataSource
+import com.example.applaudo.data.repository.dataSource.MovieRemoteDataSource
 import com.example.applaudo.domain.MoviesRepository
-import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
 
-class MoviesRepositoryImpl @Inject constructor(
-    private val api: MovieDbApi
-) : MoviesRepository{
-    override suspend fun getPopularMovies(page: Int, limit: Int): PopularMoviesDto {
-        return api.getPopularMovies()
-    }
+class MoviesRepositoryImpl(
+    private val movieRemoteDataSource: MovieRemoteDataSource,
+    private val movieLocalDataSource: MovieLocalDataSource,
+) :
+    MoviesRepository {
+    override fun getPopularMovies() =
+        movieRemoteDataSource.getPopularMovies()
 
+    override fun getTopRatedMovies() =
+        movieRemoteDataSource.getTopRatedMovies()
+
+    override fun getMoviesFromDB(movieId: Int): Flow<PopularMoviesCache> =
+        movieLocalDataSource.getMoviesFromDB(movieId)
 }

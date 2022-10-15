@@ -4,8 +4,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-@Entity(tableName = "popularMovies")
-data class PopularMoviesCache(
+@Entity(tableName = "topRatedMovies")
+data class TopRatedMoviesCache(
     @PrimaryKey(autoGenerate = true)
     var pk: Long = 0,
     @SerializedName("id")

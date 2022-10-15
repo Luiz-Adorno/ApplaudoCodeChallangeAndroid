@@ -16,14 +16,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
 import com.example.applaudo.common.ConnectivityObserver
+import com.example.applaudo.common.Constants
 import com.example.applaudo.common.NetworkConnectivityObserver
 import com.example.applaudo.presentation.screens.HomeScreen
 import com.example.applaudo.presentation.screens.LoginScreen
 import com.example.applaudo.presentation.screens.SplashScreen
+import com.example.applaudo.presentation.screens.movie_details.MovieDetailsScreen
 import com.example.applaudo.presentation.ui.theme.ApplaudoTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -88,6 +92,15 @@ fun Navigation() {
         }
         composable(Screen.HomeScreen.route) {
             HomeScreen(navController = navController)
+        }
+        composable(
+            route = Screen.MovieDetails.route,
+            arguments = listOf(navArgument(Constants.MOVIE_DETAILS_ARGUMENT_KEY) {
+                type = NavType.StringType
+            })
+        ) { backStackEntry ->
+            backStackEntry.arguments?.getString(Constants.MOVIE_DETAILS_ARGUMENT_KEY)
+                ?.let { MovieDetailsScreen(it,navController) }
         }
     }
 }

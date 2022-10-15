@@ -12,7 +12,10 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.*
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
@@ -28,6 +31,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.paging.compose.collectAsLazyPagingItems
+import com.example.applaudo.presentation.screens.lists.PopularMovieListContent
 import com.example.applaudo.presentation.ui.theme.ButtonChipColor
 import com.example.applaudo.presentation.viewmodels.HomeViewModel
 
@@ -36,21 +41,22 @@ fun HomeScreen(
     navController: NavController,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
-    val state = viewModel.popularMovieEstate.value
-    if (state.isLoading) {
-        Box(modifier = Modifier.fillMaxSize()) {
-            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
-        }
-    }
+    val popularMovies = viewModel.getAllPopularMovies.collectAsLazyPagingItems()
+    val topRatedMovies = viewModel.getTopRatedMovies.collectAsLazyPagingItems()
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(240, 242, 245))
     ) {
-
         AppBar(navController)
         PageContent(navController, viewModel)
+        PopularMovieListContent(popularMovies,navController)
+       // TopRatedMovieListContent(topRatedMovies,navController)
+
+
+
+
     }
 }
 @Composable
@@ -81,7 +87,7 @@ fun PageContent(navController: NavController, viewModel: HomeViewModel){
     LazyColumn(
         state = listState,
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxWidth()
     ) {
 
         item {
@@ -124,7 +130,7 @@ fun SelectableContentTypeChip(
 
     Box(
         modifier = Modifier
-            .padding(end = 4.dp, top = 14.dp)
+            .padding(end = 4.dp, top = 14.dp, bottom = 8.dp)
             .clip(CircleShape)
             .background(
                 color = animateChipBackgroundColor

@@ -5,10 +5,6 @@ import com.example.applaudo.common.ConnectivityObserver
 import com.example.applaudo.common.Constants
 import com.example.applaudo.common.NetworkConnectivityObserver
 import com.example.applaudo.data.remote.MovieDbApi
-import com.example.applaudo.data.repository.MoviesRepositoryImpl
-import com.example.applaudo.domain.MoviesRepository
-import com.example.applaudo.domain.use_cases.GetPopularMoviesUseCase
-import com.example.applaudo.domain.use_cases.MoviesUseCases
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,7 +20,7 @@ import javax.inject.Singleton
 @ExperimentalCoroutinesApi
 @Module
 @InstallIn(SingletonComponent::class)
-object AppModule {
+object NetworkModule {
 
     @Singleton
     @Provides
@@ -61,18 +57,4 @@ object AppModule {
         return NetworkConnectivityObserver(context)
     }
 
-
-    @Provides
-    @Singleton
-    fun provideMoviesRepository(api: MovieDbApi): MoviesRepository {
-        return MoviesRepositoryImpl(api)
-    }
-
-    @Provides
-    @Singleton
-    fun provideMeUseCases(repository: MoviesRepository): MoviesUseCases {
-        return MoviesUseCases(
-            getPopularMoviesUseCase = GetPopularMoviesUseCase(repository)
-        )
-    }
 }
