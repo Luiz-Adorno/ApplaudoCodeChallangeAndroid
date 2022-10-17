@@ -1,10 +1,7 @@
 package com.example.applaudo.di
 
-import com.example.applaudo.domain.MoviesRepository
-import com.example.applaudo.domain.use_cases.GetMoviesFromDBUseCase
-import com.example.applaudo.domain.use_cases.GetPopularMoviesUseCase
-import com.example.applaudo.domain.use_cases.GetTopRatedMoviesUseCase
-import com.example.applaudo.domain.use_cases.MoviesUseCase
+import com.example.applaudo.domain.TvShowRepository
+import com.example.applaudo.domain.use_cases.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,9 +12,15 @@ import dagger.hilt.components.SingletonComponent
 object UseCaseModule {
 
     @Provides
-    fun provideMovieUseCases(movieRepository: MoviesRepository) = MoviesUseCase(
-        getPopularMoviesUseCase = GetPopularMoviesUseCase(movieRepository = movieRepository),
-        getMoviesFromDBUseCase = GetMoviesFromDBUseCase(movieRepository = movieRepository),
-        getTopRatedMoviesUseCase = GetTopRatedMoviesUseCase(movieRepository = movieRepository)
+    fun provideTvShowUseCases(movieRepository: TvShowRepository) = TvShowUseCase(
+        getPopularTvShowsUseCase = GetPopularTvShowsUseCase(tvShowRepository = movieRepository),
+        getPopularTvShowsFromDBUseCase = GetPopularTvShowsFromDBUseCase(tvShowRepository = movieRepository),
+        getTopRatedTvShowsUseCase = GetTopRatedTvShowsUseCase(tvShowRepository = movieRepository),
+        getTopRatedTvShowsFromDbUseCase = GetTopRatedTvShowsFromDbUseCase(tvShowRepository = movieRepository),
+        getOnTvTvShowsFromDbUseCase = GetOnTvTvShowsFromDBUseCase(tvShowRepository = movieRepository),
+        getOnTvTvShowsUseCase = GetOnTvTvShowsUseCase(tvShowRepository = movieRepository),
+        getAiringTodayTvShowCache = GetAiringTodayTvShowsUseCase(tvShowRepository = movieRepository),
+        getAiringTodayTvShowFromDBUseCase = GetAiringTodayTvShowsFromDBUseCase(tvShowRepository = movieRepository)
+
     )
 }

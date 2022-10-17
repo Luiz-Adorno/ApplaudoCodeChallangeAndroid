@@ -2,9 +2,9 @@ package com.example.applaudo.di
 
 import android.app.Application
 import androidx.room.Room
-import com.example.applaudo.data.local.db.MovieDB
-import com.example.applaudo.data.local.db.MoviesDao
-import com.example.applaudo.data.local.paging.MovieRemoteKeysDao
+import com.example.applaudo.data.local.db.TvShowDB
+import com.example.applaudo.data.local.db.TvShowsDao
+import com.example.applaudo.data.local.paging.TvShowsRemoteKeysDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,13 +15,13 @@ import dagger.hilt.components.SingletonComponent
 object DatabaseModule {
 
     @Provides
-    fun provideDatabase(app: Application): MovieDB =
-        Room.databaseBuilder(app, MovieDB::class.java, "popularMovies").fallbackToDestructiveMigration()
+    fun provideDatabase(app: Application): TvShowDB =
+        Room.databaseBuilder(app, TvShowDB::class.java, "popularMovies").fallbackToDestructiveMigration()
             .build()
 
     @Provides
-    fun provideMovieDao(movieDB: MovieDB) : MoviesDao = movieDB.movieDao()
+    fun provideMovieDao(tvShowDB: TvShowDB) : TvShowsDao = tvShowDB.tvShowsDao()
 
     @Provides
-    fun provideMovieRemoteKeysDao(movieDB: MovieDB) : MovieRemoteKeysDao = movieDB.movieRemoteKeysDao()
+    fun provideMovieRemoteKeysDao(tvShowDB: TvShowDB) : TvShowsRemoteKeysDao = tvShowDB.tvShowsRemoteKeysDao()
 }

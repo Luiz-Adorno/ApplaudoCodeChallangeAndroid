@@ -1,8 +1,8 @@
 package com.example.applaudo.di
 
-import com.example.applaudo.data.local.db.MoviesDao
-import com.example.applaudo.data.repository.dataSource.MovieLocalDataSource
-import com.example.applaudo.data.repository.dataSourceImpl.MovieLocalDataSourceImpl
+import com.example.applaudo.data.local.db.TvShowsDao
+import com.example.applaudo.data.repository.dataSource.TvShowLocalDataSource
+import com.example.applaudo.data.repository.dataSourceImpl.TvShowLocalDataSourceImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,6 +13,6 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 object LocalDataModule {
     @Provides
-    fun provideLocalDataSource(movieDao: MoviesDao): MovieLocalDataSource =
-        MovieLocalDataSourceImpl(movieDao = movieDao)
+    fun provideLocalDataSource(movieDao: TvShowsDao): TvShowLocalDataSource =
+        TvShowLocalDataSourceImpl(tvShowsDao = movieDao)
 }

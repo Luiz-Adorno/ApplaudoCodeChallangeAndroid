@@ -27,7 +27,11 @@ import com.example.applaudo.common.NetworkConnectivityObserver
 import com.example.applaudo.presentation.screens.HomeScreen
 import com.example.applaudo.presentation.screens.LoginScreen
 import com.example.applaudo.presentation.screens.SplashScreen
-import com.example.applaudo.presentation.screens.movie_details.MovieDetailsScreen
+import com.example.applaudo.presentation.screens.lists.AiringTodayShowListContent
+import com.example.applaudo.presentation.screens.tv_show_details.airing_today.AiringTodayMovieDetailsScreen
+import com.example.applaudo.presentation.screens.tv_show_details.on_tv.OnTvTvShowDetailsScreen
+import com.example.applaudo.presentation.screens.tv_show_details.popular.MovieDetailsScreen
+import com.example.applaudo.presentation.screens.tv_show_details.top_rated.TopRatedMovieDetailsScreen
 import com.example.applaudo.presentation.ui.theme.ApplaudoTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -94,13 +98,40 @@ fun Navigation() {
             HomeScreen(navController = navController)
         }
         composable(
-            route = Screen.MovieDetails.route,
-            arguments = listOf(navArgument(Constants.MOVIE_DETAILS_ARGUMENT_KEY) {
+            route = Screen.TvShowDetails.route,
+            arguments = listOf(navArgument(Constants.TV_SHOW_DETAILS_ARGUMENT_KEY) {
                 type = NavType.StringType
             })
         ) { backStackEntry ->
-            backStackEntry.arguments?.getString(Constants.MOVIE_DETAILS_ARGUMENT_KEY)
+            backStackEntry.arguments?.getString(Constants.TV_SHOW_DETAILS_ARGUMENT_KEY)
                 ?.let { MovieDetailsScreen(it,navController) }
+        }
+        composable(
+            route = Screen.TopRatedTvShowDetails.route,
+            arguments = listOf(navArgument(Constants.TV_SHOW_DETAILS_ARGUMENT_KEY) {
+                type = NavType.StringType
+            })
+        ) { backStackEntry ->
+            backStackEntry.arguments?.getString(Constants.TV_SHOW_DETAILS_ARGUMENT_KEY)
+                ?.let { TopRatedMovieDetailsScreen(it,navController) }
+        }
+        composable(
+            route = Screen.OnTvTvShowDetails.route,
+            arguments = listOf(navArgument(Constants.TV_SHOW_DETAILS_ARGUMENT_KEY) {
+                type = NavType.StringType
+            })
+        ) { backStackEntry ->
+            backStackEntry.arguments?.getString(Constants.TV_SHOW_DETAILS_ARGUMENT_KEY)
+                ?.let { OnTvTvShowDetailsScreen(it,navController) }
+        }
+        composable(
+            route = Screen.AiringTodayTvShowDetails.route,
+            arguments = listOf(navArgument(Constants.TV_SHOW_DETAILS_ARGUMENT_KEY) {
+                type = NavType.StringType
+            })
+        ) { backStackEntry ->
+            backStackEntry.arguments?.getString(Constants.TV_SHOW_DETAILS_ARGUMENT_KEY)
+                ?.let { AiringTodayMovieDetailsScreen(it,navController) }
         }
     }
 }

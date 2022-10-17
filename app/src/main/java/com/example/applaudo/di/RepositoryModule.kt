@@ -1,9 +1,9 @@
 package com.example.applaudo.di
 
-import com.example.applaudo.data.repository.MoviesRepositoryImpl
-import com.example.applaudo.data.repository.dataSource.MovieLocalDataSource
-import com.example.applaudo.data.repository.dataSource.MovieRemoteDataSource
-import com.example.applaudo.domain.MoviesRepository
+import com.example.applaudo.data.repository.TvShowRepositoryImpl
+import com.example.applaudo.data.repository.dataSource.TvShowLocalDataSource
+import com.example.applaudo.data.repository.dataSource.TvShowRemoteDataSource
+import com.example.applaudo.domain.TvShowRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,8 +16,8 @@ object RepositoryModule {
 
     @Provides
     fun provideMoviesRepository(
-        movieRemoteDataSource: MovieRemoteDataSource,
-        movieLocalDataSource: MovieLocalDataSource
-    ): MoviesRepository =
-        MoviesRepositoryImpl(movieRemoteDataSource, movieLocalDataSource = movieLocalDataSource)
+        tvShowRemoteDataSource: TvShowRemoteDataSource,
+        tvShowLocalDataSource: TvShowLocalDataSource
+    ): TvShowRepository =
+        TvShowRepositoryImpl(tvShowRemoteDataSource, tvShowLocalDataSource = tvShowLocalDataSource)
 }

@@ -19,9 +19,7 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,8 +29,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.paging.compose.collectAsLazyPagingItems
-import com.example.applaudo.presentation.screens.lists.PopularMovieListContent
 import com.example.applaudo.presentation.ui.theme.ButtonChipColor
 import com.example.applaudo.presentation.viewmodels.HomeViewModel
 
@@ -41,8 +37,6 @@ fun HomeScreen(
     navController: NavController,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
-    val popularMovies = viewModel.getAllPopularMovies.collectAsLazyPagingItems()
-    val topRatedMovies = viewModel.getTopRatedMovies.collectAsLazyPagingItems()
 
     Column(
         modifier = Modifier
@@ -50,13 +44,7 @@ fun HomeScreen(
             .background(Color(240, 242, 245))
     ) {
         AppBar(navController)
-        PageContent(navController, viewModel)
-        PopularMovieListContent(popularMovies,navController)
-       // TopRatedMovieListContent(topRatedMovies,navController)
-
-
-
-
+        viewModel.Refresh(navController = navController)
     }
 }
 @Composable
@@ -84,28 +72,34 @@ fun PageContent(navController: NavController, viewModel: HomeViewModel){
     val listOfContentType = listOf("Popular","Top Rated","On TV","Airing Today")
 //     A LazyColumn is a vertically scrolling list that only composes and lays out the currently visible items.
 //     It’s similar to a Recyclerview in the classic Android View system.
-    LazyColumn(
-        state = listState,
-        modifier = Modifier
-            .fillMaxWidth()
-    ) {
+    var chipOnClick by remember { mutableStateOf(false) }
+    if (chipOnClick) {
+        viewModel.Refresh(navController = navController)
+    }else{
+        LazyColumn(
+            state = listState,
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
 
-        item {
-            LazyRow(
-                modifier = Modifier
-                    .padding(horizontal = 2.dp)
-                    .fillMaxSize()
-            ) {
-                items(count = listOfContentType.size) {
-                    SelectableContentTypeChip(
-                        contentTypeName = listOfContentType[it],
-                        selected = listOfContentType[it] == viewModel.selectedType.value ,
-                        onclick = {
-                            if (viewModel.selectedType.value != listOfContentType[it]) {
-                                viewModel.selectedType.value = listOfContentType[it]
+            item {
+                LazyRow(
+                    modifier = Modifier
+                        .padding(horizontal = 2.dp)
+                        .fillMaxSize()
+                ) {
+                    items(count = listOfContentType.size) {
+                        SelectableContentTypeChip(
+                            contentTypeName = listOfContentType[it],
+                            selected = listOfContentType[it] == viewModel.selectedType.value ,
+                            onclick = {
+                                if (viewModel.selectedType.value != listOfContentType[it]) {
+                                    viewModel.selectedType.value = listOfContentType[it]
+                                    chipOnClick = true
+                                }
                             }
-                        }
-                    )
+                        )
+                    }
                 }
             }
         }

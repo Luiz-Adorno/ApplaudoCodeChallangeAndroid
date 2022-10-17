@@ -4,7 +4,7 @@ import android.content.Context
 import com.example.applaudo.common.ConnectivityObserver
 import com.example.applaudo.common.Constants
 import com.example.applaudo.common.NetworkConnectivityObserver
-import com.example.applaudo.data.remote.MovieDbApi
+import com.example.applaudo.data.remote.TvShowsApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -42,13 +42,13 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideMovieDbApi(okHttpClient: OkHttpClient): MovieDbApi{
+    fun provideMovieDbApi(okHttpClient: OkHttpClient): TvShowsApi{
         return Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
-            .create(MovieDbApi::class.java)
+            .create(TvShowsApi::class.java)
     }
 
     @Provides
